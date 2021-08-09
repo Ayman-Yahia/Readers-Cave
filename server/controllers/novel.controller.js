@@ -2,12 +2,12 @@ const { Novel } = require('../models/novel.model');
 
     // The method below is new
 module.exports.createNovel = (request, response) => {
-    const { noveltName,category ,desc,image} = request.body;
+    const { noveltName ,desc,image,comments} = request.body;
     Novel.create({
         noveltName,
-        category,
         desc,
-        image
+        image,
+        comments
     })
         .then(novel => response.json(novel))
         .catch(err => response.status(400).json(err))
