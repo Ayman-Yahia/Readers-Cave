@@ -10,7 +10,8 @@ let CategorySchema = new Schema ({
         type: mongoose.Schema.Types.ObjectID,
         ref:'Novel'
     }]
-})
+}   ,{ timestamps: true }
+)
 
 
 module.exports.Category = mongoose.model('Category', CategorySchema);

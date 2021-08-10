@@ -1,4 +1,4 @@
-const { Comment } = require('../models/novel.model');
+const { Comment } = require('../models/comment.model');
 
 module.exports.createComment = (request, response) => {
     const { text } = request.body;

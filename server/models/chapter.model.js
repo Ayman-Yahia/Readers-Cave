@@ -16,7 +16,8 @@ let ChapterSchema = new Schema ({
         type: Schema.Types.ObjectId,
         ref:'Novel'
     }
-})
+}   ,{ timestamps: true }
+)
 
 
 module.exports.Chapter = mongoose.model('Chapter', ChapterSchema);

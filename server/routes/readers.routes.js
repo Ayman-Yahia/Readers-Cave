@@ -1,3 +1,4 @@
+const UserController = require('../controllers/user.controller');
 const NovelController = require('../controllers/novel.controller');
 const ChapterController = require('../controllers/chapter.controller');
 const CommentController = require('../controllers/comment.controller');

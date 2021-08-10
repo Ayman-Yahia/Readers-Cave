@@ -1,4 +1,4 @@
-const { Chapter } = require('../models/novel.model');
+const { Chapter } = require('../models/chapter.model');
 
 module.exports.createChapter = (request, response) => {
     const { name,text } = request.body;
