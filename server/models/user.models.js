@@ -10,12 +10,12 @@ let UserSchema = new Schema ({
         type: String,
         required: [true, "Password is required"],
         minlength: [2, "password should be at least 2 characters long !"]},
-    role :{
-        type : String,
-        required :true,
-        anum:['user' , 'admin' ],
-        required:true
-    },
+    // role :{
+    //     type : String,
+    //     required :true,
+    //     anum:['user' , 'admin' ],
+    //     required:true
+    // },
     novels:[{
         type: mongoose.Schema.Types.ObjectID,
         ref:'Novel'
