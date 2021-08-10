@@ -3,10 +3,11 @@ import './App.css';
 import Navbar from "./components/Navbar/index";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from './pages';
+import Footer from './components/Footer'
 
 
 function App() {
-  return (
+  return (<>
     <Router>
       <Navbar />
       <Switch>
@@ -14,6 +15,8 @@ function App() {
 
       </Switch>
     </Router>
+	<Footer />
+	</>
   );
 }
 
