@@ -19,6 +19,12 @@ let UserSchema = new Schema ({
         required: [true, 'password is required'],
         minlength: [6, 'password should contain at least 6 characters'],
         },
+        role :{
+            type : String,
+            required :true,
+            anum:['user' , 'admin' ],
+            required:true
+        },
     novels:[{
         type: mongoose.Schema.Types.ObjectID,
         ref:'Novel'
