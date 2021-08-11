@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-let CategorySchema = new Schema ({
+let CategorySchema = new mongoose.Schema ({
     categoryName:{ 
         type: String,
         required: [true, "category's name is required"],

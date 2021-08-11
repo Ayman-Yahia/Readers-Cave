@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt');
 const uniqueValidator = require('mongoose-unique-validator');
 
-let UserSchema = new Schema ({
+let UserSchema = new mongoose.Schema ({
     userName:{ 
         type: String,
         required: [true, "User's name is required"],
@@ -19,12 +19,6 @@ let UserSchema = new Schema ({
         required: [true, 'password is required'],
         minlength: [6, 'password should contain at least 6 characters'],
         },
-        role :{
-            type : String,
-            required :true,
-            anum:['user' , 'admin' ],
-            required:true
-        },
     novels:[{
         type: mongoose.Schema.Types.ObjectID,
         ref:'Novel'
@@ -34,29 +28,29 @@ let UserSchema = new Schema ({
         ref:'Comment'
     }],
 })
-UserSchema.path('email').validate(async (email) => {
-    const count = await mongoose.model('User').count({ email });
-    return !count;
-}, 'email has already used');
-UserSchema.path('userName').validate(async (userName) => {
-	const count = await mongoose.model('User').count({ userName });
-	return !count;
-}, 'user name has already used');
-UserSchema.pre('save', async function (next) {
-    try {
-        const user = this;
-        if (!user.isModified('password')) {
-            return next();
-        }
-        user.password = await bcrypt.hash(user.password, 10);
-        return next();
-    } catch (e) {
-        return next(e);
-    }
-});
-UserSchema.methods.generateToken = function () {
-    return jwt.sign({ user: this }, process.env.JWTSECRET);
-};
-UserSchema.plugin(uniqueValidator);
+// UserSchema.path('email').validate(async (email) => {
+//     const count = await mongoose.model('User').count({ email });
+//     return !count;
+// }, 'email has already used');
+// UserSchema.path('userName').validate(async (userName) => {
+// 	const count = await mongoose.model('User').count({ userName });
+// 	return !count;
+// }, 'user name has already used');
+// UserSchema.pre('save', async function (next) {
+//     try {
+//         const user = this;
+//         if (!user.isModified('password')) {
+//             return next();
+//         }
+//         user.password = await bcrypt.hash(user.password, 10);
+//         return next();
+//     } catch (e) {
+//         return next(e);
+//     }
+// });
+// UserSchema.methods.generateToken = function () {
+//     return jwt.sign({ user: this }, process.env.JWTSECRET);
+// };
+// UserSchema.plugin(uniqueValidator);
 
 module.exports.User = mongoose.model('User', UserSchema);

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const uniqueValidator = require('mongoose-unique-validator');
 
-let ChapterSchema = new Schema ({
+let ChapterSchema = new mongoose.Schema ({
     chapterName:{ 
         type: String,
         required: [true, "chapter's name is required"],
@@ -13,7 +13,7 @@ let ChapterSchema = new Schema ({
         minlength: [150, "A chapter content should be at least 150 characters long !"]
     },
     novel:{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'Novel'
     }
 }   ,{ timestamps: true }

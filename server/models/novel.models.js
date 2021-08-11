@@ -13,7 +13,7 @@ const NovelSchema = new mongoose.Schema({
         type: String,
         required: [true, "novel description is required"],
         minlength: [150, "novel description should be longer than 150 characters!"],
-        // unique:true
+        unique:true
     },
     image:{
         type:String
