@@ -7,10 +7,10 @@ import {
     NavMenu,
     NavBtn,
     NavBtnLink,
-} from "./NavbarElements";
+} from "../styling/header.module";
 
 
-const Navbar = () => {
+const Header = () => {
     return (
         <>
            <Nav>
@@ -46,4 +46,4 @@ const Navbar = () => {
         </>
     );
 };
-export default Navbar;
+export default Header;

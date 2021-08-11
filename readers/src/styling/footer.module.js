@@ -4,6 +4,7 @@ export const Box = styled.div`
   padding: 30px 0;
   background: black;
   position: absolute;
+  top:0%
   bottom: 0;
   width: 100%;
   
