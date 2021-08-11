@@ -1,8 +1,8 @@
-const { Novel } = require('../models/novel.models');
+const { Novel } = require('../models/novel.model');
 const { Chapter } = require('../models/chapter.model');
-const { User } = require('../models/user.models');
-const { Comment } = require('../models/comment.models');
-const { Category } = require('../models/category.models');
+const { User } = require('../models/user.model');
+const { Comment } = require('../models/comment.model');
+const { Category } = require('../models/category.model');
 
 module.exports.createNovel = (request, response) => {
     console.log(request.body)
@@ -87,6 +87,19 @@ module.exports.createChapter = (request, response) => {
          return response.json(chapter)
     })
         .catch(err => response.status(400).json(err))
+}
+module.exports.deleteNovel = (request, response) => {
+        const m=Novel.findOne({_id:request.params.id,_id:request.params.cid})
+        Novel.findOne({_id:request.params.id})
+        .then(m=> {
+            Category.findOneAndUpdate({'_id': request.params.cid},{ 
+                $pull:{novels: m}
+             })
+             return response.json(comment)
+        })
+        Novel.deleteOne({ _id: request.params.id })
+        .then(deleteConfirmation => response.json(deleteConfirmation))
+        .catch(err => response.json(err))
 }
 // module.exports.allNovels= (request, response) =>{
 //     Movie.find().sort({showingDate: 'ascending'}).populate('Buyers')
