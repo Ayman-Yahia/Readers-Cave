@@ -5,7 +5,7 @@ const ReaderController = require('../controllers/readers.controller');
 // const CategoryController = require('../controllers/comment.controller');
 
 module.exports = function(app){
-    app.post('/api/novels', ReaderController.createNovel);
+    app.post('/api/novels/:id', ReaderController.createNovel);
     // app.get('/api/novels', NovelController.getAllNovels);
     app.get('/api/novels/:id', ReaderController.getNovel);
     app.put('/api/novels/:id', ReaderController.updateNovel);

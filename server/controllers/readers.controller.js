@@ -20,11 +20,11 @@ const { Category } = require('../models/category.model');
 // }
 module.exports.createNovel = (request, response) => {
     console.log(request.body)
-    const { novelName, desc,image,author,category} = request.body;
-    Novel.create({ novelName, desc,image,author,category})
+    const { novelName, desc,image,category} = request.body;
+    Novel.create({ novelName, desc,image})
     .then(novel=>{
         console.log(novel)
-        return User.findOneAndUpdate({'_id':author},{$push:{novels:novel._id}})
+        return User.findOneAndUpdate({'_id':request.params.id},{$push:{novels:novel._id}})
     })
     .then(novel=> {
         console.log(novel)
