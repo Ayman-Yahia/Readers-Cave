@@ -10,7 +10,7 @@ let ChapterSchema = new mongoose.Schema ({
     chapterText:{ 
         type: String,
         required: [true, "chapter's content is required"],
-        minlength: [150, "A chapter content should be at least 150 characters long !"]
+        minlength: [8, "A chapter content should be at least 150 characters long !"]
     },
     novel:{
         type: mongoose.Schema.Types.ObjectId,

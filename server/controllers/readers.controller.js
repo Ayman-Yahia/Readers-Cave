@@ -4,25 +4,49 @@ const { User } = require('../models/user.model');
 const { Comment } = require('../models/comment.model');
 const { Category } = require('../models/category.model');
 
+// module.exports.createNovel = (request, response) => {
+//     console.log(request.body)
+//     const { novelName, desc,image,category,author } = request.body;
+//     Novel.create({ novelName, desc,image,author, category})
+//         .then(novel=> {
+//             Category.findOneAndUpdate({'_id':category},{ 
+//                 $push:{novels: novel}
+//              })
+//         })
+//         .then(novel=> {
+            // User.findOneAndUpdate({'_id':author},{$push:{novels: novel}},{new:true})
+//         })
+//         .catch(err => response.json(err));
+// }
 module.exports.createNovel = (request, response) => {
     console.log(request.body)
-    const { novelName, desc,image,category,author } = request.body;
-    Novel.create({ novelName, desc,image,author, category})
-        .then(novel=> {
-            Category.findOneAndUpdate({'_id':category},{ 
-                $push:{novels: novel}
-            
-       
-             }).catch(err => response.json(err));
-             return response.json(movie)
+    const { novelName, desc,image,author,category} = request.body;
+    Novel.create({ novelName, desc,image,author,category})
+    .then(novel=>{
+        console.log(novel)
+        return User.findOneAndUpdate({'_id':author},{$push:{novels:novel._id}})
+    })
+    .then(novel=> {
+        console.log(novel)
+        return Category.findOneAndUpdate({'_id':category},{ 
+            $push:{novels:novel._id}
         })
-        .then(novel=> {
-            User.findOneAndUpdate({'_id':author},{ 
-                $push:{novels: novel}
-             }).catch(err => response.json(err));
-             return response.json(novel)
+    })
+    .then(res => response.json(res))
+    .catch(err => response.json(err));
+}
+module.exports.createChapter = (request, response) => {
+    const { chapterName,chapterText} = request.body;
+    Chapter.create({
+        chapterName,chapterText
+    })
+    .then(chapter=> {
+        return Novel.findOneAndUpdate({'_id':request.params.id},{ 
+            $push:{chapters: chapter._id}
         })
-        .catch(err => response.json(err));
+    })
+    .then(res => response.json(res))
+    .catch(err => response.status(400).json(err))
 }
 module.exports.updateNovel = (request, response) => {
     console.log(request.body)
@@ -39,21 +63,18 @@ module.exports.updateChapter = (request, response) => {
     .catch(err => response.status(400).json(err))
 }
 module.exports.createComment = (request, response) => {
-    const { commentText,author,selectedNovel} = request.body;
-    Comment.create({ commentText})
-        .then(comment=> {
-            User.findOneAndUpdate({'_id':author},{ 
-                $push:{commentsOfUser: comment}
-             })
-             return response.json(comment)
+    const { commentText,author,novel,user} = request.body;
+    Comment.create({ commentText,author,novel,user})
+    .then(chapter=>{
+        return Novel.findOneAndUpdate({'_id':novel},{$push:{novels:chapter._id}})
+    })
+    .then(chapter=> {
+        return User.findOneAndUpdate({'_id':user},{ 
+            $push:{novels:chapter._id}
         })
-        .then(comment=> {
-            Novel.findOneAndUpdate({'_id':selectedNovel},{ 
-                $push:{commentsToNovel: novel}
-             })
-             return response.json(comment)
-        })
-        .catch(err => response.json(err));
+    })
+    .then(res => response.json(res))
+    .catch(err => response.json(err));
 }
 module.exports.createCategory = (request, response) => {
     Category.create(request.body)
@@ -70,29 +91,22 @@ module.exports.getOneCategory=(request, response)=>{
     .then(category => response.json(category))
     .catch(err => response.json(err))
 }
-module.exports.getOneNovel=(request, response)=>{
+module.exports.getNovel=(request, response)=>{
     Novel.findOne({_id:request.params.id}).populate('commentsToNovel')
     .then(novel => response.json(novel))
     .catch(err => response.json(err))
 }
-module.exports.createChapter = (request, response) => {
-    const { chapterName,chapterText, selectedNovel} = request.body;
-    Chapter.create({
-        chapterName,chapterText
-    })
-    .then(chapter=> {
-        Novel.findOneAndUpdate({'_id':selectedNovel},{ 
-            $push:{commentsToNovel: chapter}
-         })
-         return response.json(chapter)
-    })
-        .catch(err => response.status(400).json(err))
-}
+
 module.exports.deleteNovel = (request, response) => {
-        const m=Novel.findOne({_id:request.params.id,_id:request.params.cid})
-        Novel.findOne({_id:request.params.id})
+        m=Novel.findOne({_id:request.params.id})
         .then(m=> {
             Category.findOneAndUpdate({'_id': request.params.cid},{ 
+                $pull:{novels: m}
+             })
+             return response.json(comment)
+        })
+        .then(m=> {
+            User.findOneAndUpdate({'_id': request.params.uid},{ 
                 $pull:{novels: m}
              })
              return response.json(comment)
@@ -100,6 +114,18 @@ module.exports.deleteNovel = (request, response) => {
         Novel.deleteOne({ _id: request.params.id })
         .then(deleteConfirmation => response.json(deleteConfirmation))
         .catch(err => response.json(err))
+}
+module.exports.deleteChapter = (request, response) => {
+    m=Chapter.findOne({_id:request.params.id})
+    .then(m=> {
+        Novel.findOneAndUpdate({'_id': request.params.nid},{ 
+            $pull:{chapters: m}
+         })
+         return response.json(comment)
+    })
+    Chapter.deleteOne({ _id: request.params.id })
+    .then(deleteConfirmation => response.json(deleteConfirmation))
+    .catch(err => response.json(err))
 }
 // module.exports.allNovels= (request, response) =>{
 //     Movie.find().sort({showingDate: 'ascending'}).populate('Buyers')

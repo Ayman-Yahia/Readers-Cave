@@ -17,7 +17,7 @@ let UserSchema = new mongoose.Schema ({
     password: {
         type: String,
         required: [true, 'password is required'],
-        minlength: [6, 'password should contain at least 6 characters'],
+        minlength: [8, 'password should contain at least 6 characters'],
         },
     novels:[{
         type: mongoose.Schema.Types.ObjectID,
