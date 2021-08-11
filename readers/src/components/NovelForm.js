@@ -61,7 +61,7 @@ const NovelForm = () => {
         </Select>
         </FormControl>
         <div ><br></br>
-          <Button variant="contained" color="primary" size="medium">
+          <Button className="orange" variant="contained" size="medium">
               Create
           </Button>
         </div>
