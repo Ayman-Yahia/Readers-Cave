@@ -5,7 +5,7 @@ export const Box = styled.div`
   background: black;
   position: absolute;
   top:0%
-  bottom: 0;
+  bottom: 0%;
   width: 100%;
   
    

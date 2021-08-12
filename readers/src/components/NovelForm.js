@@ -1,22 +1,21 @@
-import React,{useState,useStyles} from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import React,{useState,useEffect} from "react";
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import {
-  
-  InputLabel,
-  Input,
-  Button,
-  TextField
-} from "@material-ui/core";
+import axios from 'axios'
+import {InputLabel,Input,Button,} from "@material-ui/core";
 import Header from "./Header";
 import Footer from "./Footer";
 
 const NovelForm = () => {
-
-
+    const [novelName,setNovelName]=useState("")
+    const[image,setImage]=useState("")
+    const[desc,setDesc]=useState("")
+    const[category,setCategory]=useState("Action")
+    const[categories,setCategoriers]=useState([])
+    useEffect(() => {
+      axios.get('http://localhost:8000/api/category')
+          .then(res => setCategoriers(res.data));
+    }, [])
     
     return (
         <>
@@ -34,30 +33,36 @@ const NovelForm = () => {
 
           <FormControl margin="normal" fullWidth>
             <InputLabel htmlFor="novelName">Novel Name</InputLabel>
-            <Input id="novelName" type="text" />
+            <Input id="novelName" type="text" onChange={(e)=>setNovelName(e.target.value)} value={novelName}/>
           </FormControl>
 
           <FormControl margin="normal" fullWidth>
             <InputLabel htmlFor="desc">Image URL</InputLabel>
-            <Input id="desc" type="desc" />
+            <Input id="desc" type="desc "  onChange={(e)=>setImage(e.target.value)} value={image} />
           </FormControl>
 
           <FormControl margin="normal" fullWidth>
             <InputLabel htmlFor="image">Description</InputLabel>
-            <Input id="image" multiline rows={8} />
+            <Input id="image" multiline onChange={(e)=>setDesc(e.target.value)} rows={8} value={desc}/>
           </FormControl>
         <FormControl >
-        <InputLabel htmlFor="age-native-simple">Category</InputLabel>
+        <InputLabel htmlFor="age-native-simple" >Category</InputLabel>
         <Select
           native
           inputProps={{
             name: 'category',
+            
           }}
-        >
+          value={category}
+          onChange={(e)=>setCategory(e.target.value)}
+         >
           <option aria-label="None" value="" />
-          <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
+          {
+          categories.map((category,idx)=>
+            <option key={idx} value={category._id}>Ten</option>
+            
+          )
+        }
         </Select>
         </FormControl>
         <div ><br></br>

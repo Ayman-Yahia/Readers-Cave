@@ -23,9 +23,6 @@ const Header = () => {
                 <NavLink to="/" activeStyle>
                     Home
                 </NavLink>
-				<NavLink to="/read" activeStyle>
-                    Read
-                </NavLink>
                 <NavLink to="/write" activeStyle>
                     Write
                 </NavLink>
