@@ -1,30 +1,29 @@
-import React,{useState,useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import axios from 'axios'
-import CardItem from './CardItem'
-import category from '../styling/category.css'
+import NovelCard from './NovelCard'
 const Category = (props) => {
-  const [category,setCategory]=useState({})
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/category'+props._id)
-        .then(res => setCategory(res.data));
-  }, [])
+    const[category,setCategory]=useState({})
+    const[loade,setLoade]=useState(false)
+    const{categoryId}=props
+    useEffect(()=>{
+        axios.get('http://localhost:8000/api/categories/'+categoryId)
+        .then(res => {setCategory(res.data)
+            setLoade(true)
+        })
+    },[])
     return (
         <>
-        <div className='cards'>
-          <h1>{category.name}</h1>
-          <div className='cards__container'>
-              <ul className='cards__items'>
-                {category.novels.map((novel,idx)=>
-                <CardItem
-                  src={novel.novelName}
-                  path={'/novel/'+novel._id}
-                  novel={novel}
-                />
-                )}
-              </ul>
+        {loade &&
+        <div className="container d-flex justify-content-center align-items-center h-100">
+            <div className="row">
+                    {category.novels.map(( novel, idx ) => (
+                    <div className="col-md-4" key={idx}>
+                        <NovelCard novel={novel} />
+                    </div>
+                    ))}
             </div>
-          </div>
-
+        </div>
+        }
         </>
     )
 }

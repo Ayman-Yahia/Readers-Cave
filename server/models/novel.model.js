@@ -12,15 +12,19 @@ const NovelSchema = new mongoose.Schema({
     desc: {
         type: String,
         required: [true, "novel description is required"],
-        minlength: [150, "novel description should be longer than 150 characters!"],
+        minlength: [150, "novel description should be longer than 150 characters!"]
     },
     image:{
-        type:String
-    },
+        type:String,
+        required: [true, "novel image is required"]
+    }
+    ,
     author:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    },
+        type: String,
+        required: [true, "author name is required"],
+        minlength: [2, "author name should be longer than 4 characters!"]
+    }
+    ,
     chapters:[{
         type: mongoose.Schema.Types.ObjectID,
         ref:'Chapter'

@@ -2,11 +2,13 @@ import React from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import NovelDesc from '../components/NovelDesc'
-const Novel = () => {
+import { useParams } from 'react-router-dom';
+const Novel = (props) => {
+    const { id } = useParams();
     return (
         <>
         <Header />
-        <NovelDesc />
+        <NovelDesc novelId={id}/>
         <Footer />
             
         </>

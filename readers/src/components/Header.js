@@ -8,6 +8,8 @@ import {
     NavBtn,
     NavBtnLink,
 } from "../styling/header.module";
+import styled from "styled-components";
+
 
 
 const Header = () => {
@@ -23,21 +25,12 @@ const Header = () => {
                 <NavLink to="/" activeStyle>
                     Home
                 </NavLink>
-                <NavLink to="/write" activeStyle>
-                    Write
-                </NavLink>
 				<NavLink to="/categories" activeStyle>
                     Categories
                 </NavLink>
                 <NavLink to="/contact" activeStyle>
                     Contact us
                 </NavLink>
-				<NavLink to="/signin" activeStyle>
-                    Sign In
-                </NavLink>
-                <NavBtn>
-                    <NavBtnLink to="/sign-up">Sign Up</NavBtnLink>                
-                </NavBtn>
             </NavMenu> 
            </Nav> 
         </>

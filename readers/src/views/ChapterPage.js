@@ -2,18 +2,19 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Category from '../components/Category'
-const CategoryPage = () => {
+import Chapter from '../components/Chapter';
+const ChapterPage = () => {
     const { id } = useParams();
+    console.log("mmm");
     console.log(id);
     return (
         <div>
         <Header />
-        <Category categoryId={id}/>
+        <Chapter chapterId={id}/>
         <Footer />
             
         </div>
     )
 }
 
-export default CategoryPage
+export default ChapterPage

@@ -5,20 +5,22 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import NovelForm from "./components/NovelForm";
 import Novel from "./views/Novel";
-import Home from "./views/Home";
-import ChapterFromPage from "./views/ChapterFromPage";
+import HomePage from "./views/HomePage";
 import CategoryPage from "./views/CategoryPage";
+import ContactPage from "./views/ContactPage";
+import CategoriesPage from "./views/CategoriesPage";
+import ChapterPage from "./views/ChapterPage";
 function App() {
   return (<>
   <Router>
       <Switch>
-        <Route path="/write" component={NovelForm} />
+        <Route path="/contact" component={ContactPage} />
         <Route path="/novel/:id" component={Novel} />
-        <Route path="/novel/chapter/:nid/" component={ChapterFromPage} />
+        <Route path="/categories" component={CategoriesPage} />
         <Route path="/category/:id/" component={CategoryPage} />
-        <Route path="/" component={Home} />
+        <Route path="/chapters/:id/" component={ChapterPage} />
+        <Route path="/" component={HomePage} />
       </Switch>
   </Router>
 	</>
