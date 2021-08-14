@@ -43,10 +43,12 @@ const CategoryPage = ({history}) => {
     return error ? (
       <span className="error-message">{error}</span>
     ) :  (
-        <>{consoleThis}
+        <><div className='background'>
+		{consoleThis}
             <Header />
             <Category categoryId={userId}/>
             <Footer />
+			</div>
         </>
         )
   };

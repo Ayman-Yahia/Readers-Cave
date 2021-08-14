@@ -43,10 +43,13 @@ const ChapterPage = ({history}) => {
     return error ? (
       <span className="error-message">{error}</span>
     ) :  (
-        <>{consoleThis}
+        <>
+		<div className='background'>
+		{consoleThis}
             <Header />
             <Chapter chapterId={userId}/>
             <Footer />
+			</div>
         </>
         )
   };

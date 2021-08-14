@@ -13,6 +13,8 @@ module.exports = function(app){
     app.put('/api/novels/:id', ReaderController.updateNovel);
     // app.delete('/api/novels/:id/:cid', ReaderController.deleteNovel);
     app.post('/api/category', ReaderController.createCategory )
+    app.delete('/api/category/:id', ReaderController.deleteCategory )
+
     app.post('/api/novels/chapter/:id',ReaderController.createChapter)
     app.post('/api/chapters',ReaderController.createChapter)
     app.get('/api/chapters/:id',ReaderController.getChapter)

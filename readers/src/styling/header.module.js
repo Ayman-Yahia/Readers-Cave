@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const Nav = styled.nav`
     background: orangered;
-    height: 85px;
+    height: 130px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,7 +16,8 @@ export const NavLogo = styled(Link)`
   color: #fff;
   font-size: 2rem;
   text-decoration: none;
-
+  font-family: garamond;
+  font-weight: bold;
 `;
 
 export const NavLink = styled(Link)`
@@ -52,7 +53,7 @@ export const Bars = styled(FaBars)`
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
-  margin-right: -24px;
+  margin-right: 24px;
 
   @media screen and (max-width: 768px) {
     display: none;

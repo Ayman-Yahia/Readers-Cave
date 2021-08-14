@@ -10,7 +10,7 @@ const NovelCard = (props) => {
     useEffect(()=>{
       axios.get('http://localhost:8000/api/novels/'+novel)
         .then(res => {setNov(res.data)
-          setSe(true)
+          setSe(true);
         })
 
     },[])

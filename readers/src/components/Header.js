@@ -13,11 +13,15 @@ import styled from "styled-components";
 
 
 const Header = () => {
+	function Header() {
+		// Import result is the URL of your image
+		return <img className="logo" src='../images/logo.png' alt="Logo" />;
+	  }
     return (
         <>
            <Nav>
             <NavLogo to="/">
-                Readers Cave
+			{Header()}
             </NavLogo>
             <Bars />
 
@@ -25,8 +29,11 @@ const Header = () => {
                 <NavLink to="/" activeStyle>
                     Home
                 </NavLink>
+				<NavLink to="/" activeStyle>
+                    Write
+                </NavLink>
 				<NavLink to="/categories" activeStyle>
-                    Categories
+                    Read
                 </NavLink>
                 <NavLink to="/chat" activeStyle>
                     Live Chat

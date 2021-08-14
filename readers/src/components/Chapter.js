@@ -16,14 +16,14 @@ const Chapter = (props) => {
       }, [])
 
     return (
-        <>
+        <><div className='background'>
         {loaded &&
-        <div style={{backgroundColor:"#4c4c4c",color:"white"}} className="single-product">
+        <div style={{backgroundColor:"#4c4c4c",color:"black"}} className="single-product">
             <h1>{chapter.chapterName}</h1>
         <p>{chapter.chapterText}</p>
     </div>
 }
-        </>
+</div> </>
     )
 }
 

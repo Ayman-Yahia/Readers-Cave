@@ -24,7 +24,7 @@ const Item = (props) => {
     const classes = useStyles();
 
   return (     
-    <Card className={classes.root} style={{backgroundColor:"#4c4c4c"}}  style={{color:"white",marginLeft:100+"px"}} >
+    <Card className={classes.root} style={{backgroundColor:"#4c4c4c"}}  style={{color:"white"}} >
       <CardActionArea style={{backgroundColor:"#4c4c4c"}} >
         <CardMedia
           className={classes.media}

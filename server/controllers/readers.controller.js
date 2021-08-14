@@ -161,11 +161,11 @@ module.exports.allNovels= (request, response) =>{
 //     .then(res => response.json(res))
 //     .catch(err => response.status(400).json(err));
 // }
-// module.exports.deleteProject = (request, response) => {
-//     Novel.deleteOne({ _id: request.params.id })
-//         .then(deleteConfirmation => response.json(deleteConfirmation))
-//         .catch(err => response.json(err))
-// }
+module.exports.deleteCategory = (request, response) => {
+    Category.deleteOne({ _id: request.params.id })
+        .then(deleteConfirmation => response.json(deleteConfirmation))
+        .catch(err => response.json(err))
+}
 
 
 module.exports.createUser = (request, response) => {

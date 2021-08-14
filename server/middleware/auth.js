@@ -17,7 +17,7 @@ exports.protect = async (req, res, next) => {
     }
     
     try {
-      const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = await jwt.verify(token, "hugehugehugehugeuhugeghuge");
       console.log(decoded.id)
       
       const user = await User.findById(decoded.id);

@@ -4,9 +4,7 @@ const { User } = require('../models/user.model');
 // log in and registration ::
 
 const ErrorResponse = require("../utils/errorResponse");
-const {jwt} = require("jsonwebtoken");
-const { error } = require("console");
-const {jwtdecode}  = require("jwt-decode");
+const jwtdecode  = require("jwt-decode");
 // const sendEmail = require("../utils/sendEmail");
 
 // Login user :
@@ -22,18 +20,18 @@ module.exports.login = async (req, res, next) => {
   try {
     // Check that user exists by email
     const user = await User.findOne({ email }).select("+password");
-
+	
     if (!user) {
-      return next(new ErrorResponse("Invalid credentials", 401));
+		return next(new ErrorResponse("Invalid credentials", 401));
     }
-
+	
     // Check that password match
     const isMatch = await user.matchPassword(password);
-
+	
     if (!isMatch) {
-      return next(new ErrorResponse("Invalid credentials", 401));
+		return next(new ErrorResponse("Invalid credentials", 401));
     }
-
+	
     sendToken(user, 200, res);
   } catch (err) {
     next(err);
@@ -63,7 +61,9 @@ module.exports.register = async (req, res) => {
 }
 
 const sendToken = async(user, statusCode, res) => {
-  const token = await user.getSignedJwtToken();
+	const token = await user.getSignedJwtToken();
+	console.log({jwtdecode});
+  
   var decoded = jwtdecode(token);
   console.log(decoded);
   res.status(statusCode).json({ sucess: true, token, user });

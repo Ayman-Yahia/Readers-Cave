@@ -44,10 +44,13 @@ const Novel = (props , {history}) => {
     return error ? (
       <span className="error-message">{error}</span>
     ) :  (
-        <>{consoleThis}
+        <>
+		<div className='background'>
+		{consoleThis}
             <Header />
             <NovelDesc novelId={userId}/>
             <Footer />
+			</div>
         </>
         )
   };

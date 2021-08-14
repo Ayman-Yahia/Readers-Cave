@@ -5,10 +5,11 @@ import Chat from '../components/Chat'
 const LiveChat = () => {
     return (
         <>
+		<div className='background'>
         <Header />
-        <Chat />
+        <Chat /><br/>
         <Footer />
-            
+		</div>
         </>
     )
 }
