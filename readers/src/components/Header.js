@@ -28,8 +28,8 @@ const Header = () => {
 				<NavLink to="/categories" activeStyle>
                     Categories
                 </NavLink>
-                <NavLink to="/contact" activeStyle>
-                    Contact us
+                <NavLink to="/chat" activeStyle>
+                    Live Chat
                 </NavLink>
             </NavMenu> 
            </Nav> 
