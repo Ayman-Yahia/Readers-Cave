@@ -29,7 +29,7 @@ const Header = () => {
                 <NavLink to="/" activeStyle>
                     Home
                 </NavLink>
-				<NavLink to="/" activeStyle>
+				<NavLink to="/novel/new" activeStyle>
                     Write
                 </NavLink>
 				<NavLink to="/categories" activeStyle>

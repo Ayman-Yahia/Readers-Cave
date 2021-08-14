@@ -11,6 +11,7 @@ import CategoryPage from "./views/CategoryPage";
 import ContactPage from "./views/ContactPage";
 import CategoriesPage from "./views/CategoriesPage";
 import ChapterPage from "./views/ChapterPage";
+import NForm from "./components/NForm";
 
 //Routing :
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -31,6 +32,7 @@ const  App =()=> {
         <PrivateRoute exact path ="/chat" default component = {LiveChat}/>
         <PrivateRoute exact path="/contact" component={ContactPage}/>
         <PrivateRoute exact path="/novel/:id" component={Novel}/>
+        <PrivateRoute exact path="/novel/new" component={NForm}/>
         <PrivateRoute exact path="/categories" component={CategoriesPage}/>
         <PrivateRoute exact path="/category/:id/" component={CategoryPage}/>
         <PrivateRoute exact path="/chapters/:id/" component={ChapterPage}/>
