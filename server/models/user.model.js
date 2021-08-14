@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-// const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcrypt');
-const uniqueValidator = require('mongoose-unique-validator');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+// const uniqueValidator = require('mongoose-unique-validator');
 
 let UserSchema = new mongoose.Schema ({
     userName:{ 
@@ -11,13 +11,14 @@ let UserSchema = new mongoose.Schema ({
     email: {
         type: String,
         required: [true, 'email is required'],
-        unique: true,
+        // unique: true,
         match: [/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/, 'Invalid email'],
     },
     password: {
         type: String,
         required: [true, 'password is required'],
         minlength: [8, 'password should contain at least 6 characters'],
+        select : false
         },
     novels:[{
         type: mongoose.Schema.Types.ObjectID,
@@ -28,6 +29,38 @@ let UserSchema = new mongoose.Schema ({
         ref:'Comment'
     }],
 })
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///// pre ////////
+UserSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) {
+      next();
+    }
+  
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  });
+  
+/////// match password  //////////
+  UserSchema.methods.matchPassword = async function (password) {
+    return await bcrypt.compare(password, this.password);
+  };
+  
+//// Taking the signed token ////
+  UserSchema.methods.getSignedJwtToken = function () {
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JET_EXPIRE,
+    });
+  };
+  
+  // UserSchema.plugin(uniqueValidator);
+
+module.exports.User = mongoose.model('User', UserSchema);
+
+
+
+
+
 // UserSchema.path('email').validate(async (email) => {
 //     const count = await mongoose.model('User').count({ email });
 //     return !count;
@@ -53,4 +86,4 @@ let UserSchema = new mongoose.Schema ({
 // };
 // UserSchema.plugin(uniqueValidator);
 
-module.exports.User = mongoose.model('User', UserSchema);
+// module.exports.User = mongoose.model('User', UserSchema);

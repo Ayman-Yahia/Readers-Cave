@@ -1,23 +1,23 @@
 const { Novel } = require('../models/novel.model');
 const { Chapter } = require('../models/chapter.model');
-// const { User } = require('../models/user.model');
+const { User } = require('../models/user.model');
 const { Comment } = require('../models/comment.model');
 const { Category } = require('../models/category.model');
 
-// module.exports.createNovel = (request, response) => {
-//     console.log(request.body)
-//     const { novelName, desc,image,category,author } = request.body;
-//     Novel.create({ novelName, desc,image,author, category})
-//         .then(novel=> {
-//             Category.findOneAndUpdate({'_id':category},{ 
-//                 $push:{novels: novel}
-//              })
-//         })
-//         .then(novel=> {
-            // User.findOneAndUpdate({'_id':author},{$push:{novels: novel}},{new:true})
-//         })
-//         .catch(err => response.json(err));
-// }
+module.exports.createNovel = (request, response) => {
+    console.log(request.body)
+    const { novelName, desc,image,category,author } = request.body;
+    Novel.create({ novelName, desc,image,author, category})
+        .then(novel=> {
+            Category.findOneAndUpdate({'_id':category},{ 
+                $push:{novels: novel}
+             })
+        })
+        .then(novel=> {
+            User.findOneAndUpdate({'_id':author},{$push:{novels: novel}},{new:true})
+        })
+        .catch(err => response.json(err));
+}
 module.exports.createNovel = (request, response) => {
     const { novelName, desc,image,author} = request.body;
     console.log();
@@ -93,35 +93,35 @@ module.exports.getNovel=(request, response)=>{
     .catch(err => response.json(err))
 }
 
-// module.exports.deleteNovel = (request, response) => {
-//         m=Novel.findOne({_id:request.params.id})
-//         .then(m=> {
-//             Category.findOneAndUpdate({'_id': request.params.cid},{ 
-//                 $pull:{novels: m}
-//              })
-//              return response.json(comment)
-//         })
-//         Novel.deleteOne({ _id: request.params.id })
-//         .then(deleteConfirmation => response.json(deleteConfirmation))
-//         .catch(err => response.json(err))
-// }
-// module.exports.deleteChapter = (request, response) => {
-//     m=Chapter.findOne({_id:request.params.id})
-//     .then(m=> {
-//         Novel.findOneAndUpdate({'_id': request.params.nid},{ 
-//             $pull:{chapters: m}
-//          })
-//          return response.json(comment)
-//     })
-//     Chapter.deleteOne({ _id: request.params.id })
-//     .then(deleteConfirmation => response.json(deleteConfirmation))
-//     .catch(err => response.json(err))
-// }
-// module.exports.allNovels= (request, response) =>{
-//     Movie.find().sort({showingDate: 'ascending'}).populate('Buyers')
-//     .then(movies=>response.json(movies))
-//     .catch(err=>response.status(400).json(err));
-// }
+module.exports.deleteNovel = (request, response) => {
+        m=Novel.findOne({_id:request.params.id})
+        .then(m=> {
+            Category.findOneAndUpdate({'_id': request.params.cid},{ 
+                $pull:{novels: m}
+             })
+             return response.json(comment)
+        })
+        Novel.deleteOne({ _id: request.params.id })
+        .then(deleteConfirmation => response.json(deleteConfirmation))
+        .catch(err => response.json(err))
+}
+module.exports.deleteChapter = (request, response) => {
+    m=Chapter.findOne({_id:request.params.id})
+    .then(m=> {
+        Novel.findOneAndUpdate({'_id': request.params.nid},{ 
+            $pull:{chapters: m}
+         })
+         return response.json(comment)
+    })
+    Chapter.deleteOne({ _id: request.params.id })
+    .then(deleteConfirmation => response.json(deleteConfirmation))
+    .catch(err => response.json(err))
+}
+module.exports.allNovels= (request, response) =>{
+    Movie.find().sort({showingDate: 'ascending'}).populate('Buyers')
+    .then(movies=>response.json(movies))
+    .catch(err=>response.status(400).json(err));
+}
 // -------------------------------------------------------------------------------------------------------------
 // The method below is new
 // module.exports.createNovel = (request, response) => {
