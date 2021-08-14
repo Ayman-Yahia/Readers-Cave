@@ -31,6 +31,8 @@ const PrivateScreen = ({history}) => {
 
       try {
         const { data } = await axios.get("/api/private", config);
+        console.log("data");
+        console.log(data);
         setPrivateData(data.data);
       } catch (error) {
         localStorage.removeItem("authToken");
@@ -43,17 +45,10 @@ const PrivateScreen = ({history}) => {
   return error ? (
     <span className="error-message">{error}</span>
   ) : (
-    // <>
-    
-    //     <Route path="/contact" component={ContactPage} />
-    //     <Route path="/novel/:id" component={Novel} />
-    //     <Route path="/categories" component={CategoriesPage} />
-    //     <Route path="/category/:id/" component={CategoryPage} />
-    //     <Route path="/chapters/:id/" component={ChapterPage} />
-    //     <Route default path="/" component={HomePage} />
-    
-    // </>
+    <>
+        
     <div>{privateData}</div>
+     </>
   );
 };
 

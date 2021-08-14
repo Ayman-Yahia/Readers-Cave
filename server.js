@@ -1,16 +1,16 @@
 require('dotenv').config({path : "./config.env"});
 const express = require('express');
+const cors = require('cors');
+const app = express();
 require('./server/config/mongoose.config'); 
 const errorHandler = require ("./server/middleware/error");
+app.use(cors());
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 
-
-// const connectDB = require("./config")
-
-const app = express();
 
 const PORT = process.env.PORT || 8000;
 
-app.use(express.json()); 
 require('./server/routes/readers.routes')(app);
 require('./server/routes/private')(app);
 
@@ -23,13 +23,10 @@ require('./server/routes/private')(app);
 
 // ///////////
 
-app.get("/", (req, res, next) => {
-    res.send("Api running");
-  });
+// app.get("/", (req, res, next) => {
+//     res.send("Api running");
+//   });
 
-const cors = require('cors');
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
 
 
 app.listen(PORT, () => {

@@ -18,6 +18,6 @@ module.exports = function(app){
     app.post('/api/:id/novel',ReaderController.createComment)
     //////////////////////////////////////////////////////////
     //Auth routes :
-    app.post( '/api/register', UserController.register ),
+    app.post( '/api/register', UserController.register );
     app.post( '/api/login', UserController.login )
 }

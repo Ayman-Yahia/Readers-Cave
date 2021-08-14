@@ -6,7 +6,7 @@
 const PrivateController = require('../controllers/private.controller');
 const { protect } = require("../middleware/auth");
 module.exports = app => {
-    app.get('/api/private',protect, PrivateController.getPrivateRoute );
+    app.get('/api/private', protect, PrivateController.getPrivateRoute );
 }
 
 // router.route("/").get(protect, getPrivateRoute);
