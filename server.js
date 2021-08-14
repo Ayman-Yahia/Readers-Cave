@@ -33,6 +33,13 @@ app.listen(PORT, () => {
     console.log(`Listening at Port ${PORT}`)
 })
 
+const io = require('socket.io')(server, { cors: true });
+
+io.on("connection",socket=>{
+    socket.on("send_message",data=>{
+        socket.broadcast.emit("received_message",data);
+    });
+});
 //Error Handler Middleware
 app.use(errorHandler);
 

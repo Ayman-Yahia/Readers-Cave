@@ -18,6 +18,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import PrivateScreen from "./components/screens/PrivateScreen";
 import LogInScreen from "./components/screens/LogInScreen";
 import RegisterScreen from "./components/screens/RegisterScreen";
+import LiveChat from "./views/LiveChat";
 const  App =()=> {
   return (<>
   <Router>
@@ -27,6 +28,7 @@ const  App =()=> {
         <Route exact path ="/register" component={RegisterScreen}/>
 
         <PrivateRoute exact path ="/" default component = {HomePage}/>
+        <PrivateRoute exact path ="/chat" default component = {LiveChat}/>
         <PrivateRoute exact path="/contact" component={ContactPage}/>
         <PrivateRoute exact path="/novel/:id" component={Novel}/>
         <PrivateRoute exact path="/categories" component={CategoriesPage}/>

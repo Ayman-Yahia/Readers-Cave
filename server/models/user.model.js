@@ -20,10 +20,6 @@ let UserSchema = new mongoose.Schema ({
         minlength: [8, 'password should contain at least 6 characters'],
         select : false
         },
-    novels:[{
-        type: mongoose.Schema.Types.ObjectID,
-        ref:'Novel'
-    }],
     commentsOfUser:[{
         type: mongoose.Schema.Types.ObjectID,
         ref:'Comment'

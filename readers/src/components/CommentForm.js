@@ -7,18 +7,17 @@ import {InputLabel,Input,Button,} from "@material-ui/core"
 import { useHistory } from "react-router-dom";
 
 const CommentForm = (props) => {
-  const history = useHistory();
     const{novel}=props
-    const[user,setUser]=useState("Anonymous")
+    const userId = localStorage.getItem("user_id");
     const[commentText,setCommentText]=useState("")
     const[errors,setErrors]=useState([])
     const createChapter=(e)=>{
       e.preventDefault()
       console.log("u clicked  me");
       
-      const comment={user,commentText}
+      const comment={commentText}
       console.log(comment);
-        axios.post(`http://localhost:8000/api/${novel}/novel`,comment)
+        axios.post(`http://localhost:8000/api//novel/${novel}/${userId}`,comment)
         .then(res => {console.log(res.data)
           
         }
@@ -33,7 +32,6 @@ const CommentForm = (props) => {
             }
             setErrors(errorArr);
         })
-        setUser("Anonymous")
         setCommentText("")
 
     }
@@ -44,11 +42,6 @@ const CommentForm = (props) => {
             {errors?
             errors.map((err, index) => <p style={{color:"red"}} key={index}>{err}</p>):""}
         <form onSubmit={createChapter} style={{ width: "50%" }}>
-
-          <FormControl margin="normal" fullWidth>
-            <InputLabel htmlFor="novelName">User</InputLabel>
-            <Input id="novelName" type="text" onChange={(e)=>setUser(e.target.value)} value={user}/>
-          </FormControl>
 
           <FormControl margin="normal" fullWidth>
             <InputLabel htmlFor="image">Comment</InputLabel>

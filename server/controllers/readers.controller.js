@@ -4,20 +4,20 @@ const { User } = require('../models/user.model');
 const { Comment } = require('../models/comment.model');
 const { Category } = require('../models/category.model');
 
-module.exports.createNovel = (request, response) => {
-    console.log(request.body)
-    const { novelName, desc,image,category,author } = request.body;
-    Novel.create({ novelName, desc,image,author, category})
-        .then(novel=> {
-            Category.findOneAndUpdate({'_id':category},{ 
-                $push:{novels: novel}
-             })
-        })
-        .then(novel=> {
-            User.findOneAndUpdate({'_id':author},{$push:{novels: novel}},{new:true})
-        })
-        .catch(err => response.json(err));
-}
+// module.exports.createNovel = (request, response) => {
+//     console.log(request.body)
+//     const { novelName, desc,image,category,author } = request.body;
+//     Novel.create({ novelName, desc,image,author, category})
+//         .then(novel=> {
+//             Category.findOneAndUpdate({'_id':category},{ 
+//                 $push:{novels: novel}
+//              })
+//         })
+//         .then(novel=> {
+//             User.findOneAndUpdate({'_id':author},{$push:{novels: novel}},{new:true})
+//         })
+//         .catch(err => response.json(err));
+// }
 module.exports.createNovel = (request, response) => {
     const { novelName, desc,image,author} = request.body;
     console.log();
@@ -44,25 +44,28 @@ module.exports.createChapter = (request, response) => {
     .then(res => response.json(res))
     .catch(err => response.status(400).json(err))
 }
-module.exports.updateNovel = (request, response) => {
-    console.log(request.body)
-    Novel.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
-    .then(updatedNovel => response.json(updatedNovel))
-    .catch(err => response.status(400).json(err))
+// module.exports.updateNovel = (request, response) => {
+//     console.log(request.body)
+//     Novel.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
+//     .then(updatedNovel => response.json(updatedNovel))
+//     .catch(err => response.status(400).json(err))
 
-}
+// }
 
 
-module.exports.updateChapter = (request, response) => {
-    Chapter.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
-    .then(updatedChapter => response.json(updatedChapter))
-    .catch(err => response.status(400).json(err))
-}
+// module.exports.updateChapter = (request, response) => {
+//     Chapter.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
+//     .then(updatedChapter => response.json(updatedChapter))
+//     .catch(err => response.status(400).json(err))
+// }
 module.exports.createComment = (request, response) => {
-    const { user,commentText} = request.body;
+    const { commentText} = request.body;
     Comment.create({ user,commentText})
     .then(comment=>{
-        return Novel.findOneAndUpdate({'_id':request.params.id},{$push:{commentsToNovel:comment._id}})
+        return Novel.findOneAndUpdate({'_id':request.params.nid},{$push:{commentsToNovel:comment._id}})
+    })
+    .then(comment=>{
+        return User.findOneAndUpdate({'_id':request.params.uid},{$push:{commentsOfUser:comment._id}})
     })
     .then(res => response.json(res))
     .catch(err => response.json(err));
@@ -72,6 +75,7 @@ module.exports.createCategory = (request, response) => {
         .then(category => response.json(category))
         .catch(err => response.json(err));
 }
+
 module.exports.allCategories=(request, response) =>{
     Category.find({}).populate('novels')
         .then(categories => response.json(categories))
@@ -79,6 +83,11 @@ module.exports.allCategories=(request, response) =>{
 }
 module.exports.getCategory=(request, response)=>{
     Category.findOne({_id:request.params.id})
+    .then(category => response.json(category))
+    .catch(err => response.json(err))
+}
+module.exports.getUser=(request, response)=>{
+    User.findOne({_id:request.params.id})
     .then(category => response.json(category))
     .catch(err => response.json(err))
 }
