@@ -21,10 +21,11 @@ const Chat = () => {
     const [senderName,setSenderName]=useState("");
      const classes = useStyles();
     const userId = localStorage.getItem("user_id");
-    axios.get('http://localhost:8000/api/users'+userId)
+    
+     useEffect(() => {
+      axios.get('http://localhost:8000/api/users'+userId)
         .then(res=>setSender(res.data))
         .then(()=>setSenderName(sender.userName))
-     useEffect(() => {
         // we need to set up all of our event listeners
         // in the useEffect callback function
         console.log('Is this running?');

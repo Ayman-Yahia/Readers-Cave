@@ -60,7 +60,7 @@ module.exports.updateNovel = (request, response) => {
 // }
 module.exports.createComment = (request, response) => {
     const { commentText} = request.body;
-    Comment.create({ user,commentText})
+    Comment.create({ commentText})
     .then(comment=>{
         return Novel.findOneAndUpdate({'_id':request.params.nid},{$push:{commentsToNovel:comment._id}})
     })

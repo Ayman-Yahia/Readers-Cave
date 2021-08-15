@@ -63,7 +63,7 @@ const CategoryPage = ({history}) => {
 
 
 
-//     const { id } = useParams();
+
 //     console.log(id);
 //     return (
 //         <div>
