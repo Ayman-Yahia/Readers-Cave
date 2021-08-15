@@ -9,6 +9,7 @@ const Novel = (props , {history}) => {
        
     const userId = localStorage.getItem("user_id");
     console.log(userId)
+    const { id } = useParams();
     
     const [error, setError] = useState("");
     const [privateData, setPrivateData] = useState("");
@@ -48,7 +49,7 @@ const Novel = (props , {history}) => {
 		<div className='background'>
 		{consoleThis}
             <Header />
-            <NovelDesc novelId={userId}/>
+            <NovelDesc novelId={id}/>
             <Footer />
 			</div>
         </>
@@ -67,7 +68,6 @@ const Novel = (props , {history}) => {
 
 
 
-    // const { id } = useParams();
     // return (
     //     <>
     //     <Header />

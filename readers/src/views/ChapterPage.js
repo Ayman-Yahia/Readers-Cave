@@ -8,6 +8,7 @@ const ChapterPage = ({history}) => {
 
     const userId = localStorage.getItem("user_id");
     console.log(userId);
+    const { id } = useParams();
 
     const [error, setError] = useState("");
     const [privateData, setPrivateData] = useState("");
@@ -47,7 +48,7 @@ const ChapterPage = ({history}) => {
 		<div className='background'>
 		{consoleThis}
             <Header />
-            <Chapter chapterId={userId}/>
+            <Chapter chapterId={id}/>
             <Footer />
 			</div>
         </>
@@ -63,7 +64,6 @@ const ChapterPage = ({history}) => {
 
 
 
-//     const { id } = useParams();
 //     console.log("mmm");
 //     console.log(id);
 //     return (

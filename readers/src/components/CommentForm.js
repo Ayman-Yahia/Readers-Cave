@@ -51,7 +51,7 @@ const CommentForm = (props) => {
         <div ><br></br>
 
         <Button type="submit" className="orange" variant="contained" size="medium">
-              Create
+              Comment
           </Button>
         </div>
           
