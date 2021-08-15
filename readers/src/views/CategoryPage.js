@@ -8,7 +8,7 @@ import Category from '../components/Category'
 const CategoryPage = ({history}) => {
     const userId = localStorage.getItem("user_id");
     console.log(userId)
-    
+    const { id } = useParams();
     const [error, setError] = useState("");
     const [privateData, setPrivateData] = useState("");
     console.log("im inside the categories")
@@ -46,7 +46,7 @@ const CategoryPage = ({history}) => {
         <><div className='background'>
 		{consoleThis}
             <Header />
-            <Category categoryId={userId}/>
+            <Category categoryId={id}/>
             <Footer />
 			</div>
         </>
@@ -63,7 +63,7 @@ const CategoryPage = ({history}) => {
 
 
 
-//     const { id } = useParams();
+
 //     console.log(id);
 //     return (
 //         <div>
