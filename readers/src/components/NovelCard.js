@@ -8,7 +8,7 @@ const NovelCard = (props) => {
     console.log("mmm");
     console.log(novel);
     useEffect(()=>{
-      axios.get('http://localhost:8000/api/novels/'+novel)
+      axios.get('http://localhost:8000/api/novel/'+novel)
         .then(res => {setNov(res.data)
           setSe(true);
         })

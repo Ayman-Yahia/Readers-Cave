@@ -18,13 +18,21 @@ const { Category } = require('../models/category.model');
 //         })
 //         .catch(err => response.json(err));
 // }
+module.exports.getUser = (request, response) => {
+    User.findOne({_id:request.params.id})
+        .then(user => response.json(user))
+        .catch(err => response.json(err))
+}
 module.exports.createNovel = (request, response) => {
-    const { novelName, desc,image,author} = request.body;
-    console.log();
-    Novel.create({ novelName, desc,image,author})
+    console.log(request.body)
+    const { novelName, desc,image,author,category} = request.body;
+    Novel.create({ novelName, desc,image,author,category})
+    // .then(novel=>{
+    //     return User.findOneAndUpdate({'_id':request.params.uid},{$push:{novels:novel._id}})
+    // })
     .then(novel=> {
         console.log(novel)
-        return Category.findOneAndUpdate({'_id':request.params.id},{ 
+        return Category.findOneAndUpdate({'categoryName':request.params.cid},{ 
             $push:{novels:novel._id}
         })
     })
@@ -44,13 +52,13 @@ module.exports.createChapter = (request, response) => {
     .then(res => response.json(res))
     .catch(err => response.status(400).json(err))
 }
-module.exports.updateNovel = (request, response) => {
-    console.log(request.body)
-    Novel.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
-    .then(updatedNovel => response.json(updatedNovel))
-    .catch(err => response.status(400).json(err))
+// module.exports.updateNovel = (request, response) => {
+//     console.log(request.body)
+//     Novel.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
+//     .then(updatedNovel => response.json(updatedNovel))
+//     .catch(err => response.status(400).json(err))
 
-}
+// }
 
 
 // module.exports.updateChapter = (request, response) => {
@@ -86,11 +94,7 @@ module.exports.getCategory=(request, response)=>{
     .then(category => response.json(category))
     .catch(err => response.json(err))
 }
-module.exports.getUser=(request, response)=>{
-    User.findOne({_id:request.params.id})
-    .then(category => response.json(category))
-    .catch(err => response.json(err))
-}
+
 module.exports.getChapter=(request, response)=>{
     Chapter.findOne({_id:request.params.id})
     .then(chapter => response.json(chapter))
@@ -102,35 +106,35 @@ module.exports.getNovel=(request, response)=>{
     .catch(err => response.json(err))
 }
 
-module.exports.deleteNovel = (request, response) => {
-        m=Novel.findOne({_id:request.params.id})
-        .then(m=> {
-            Category.findOneAndUpdate({'_id': request.params.cid},{ 
-                $pull:{novels: m}
-             })
-             return response.json(comment)
-        })
-        Novel.deleteOne({ _id: request.params.id })
-        .then(deleteConfirmation => response.json(deleteConfirmation))
-        .catch(err => response.json(err))
-}
-module.exports.deleteChapter = (request, response) => {
-    m=Chapter.findOne({_id:request.params.id})
-    .then(m=> {
-        Novel.findOneAndUpdate({'_id': request.params.nid},{ 
-            $pull:{chapters: m}
-         })
-         return response.json(comment)
-    })
-    Chapter.deleteOne({ _id: request.params.id })
-    .then(deleteConfirmation => response.json(deleteConfirmation))
-    .catch(err => response.json(err))
-}
-module.exports.allNovels= (request, response) =>{
-    Movie.find().sort({showingDate: 'ascending'}).populate('Buyers')
-    .then(movies=>response.json(movies))
-    .catch(err=>response.status(400).json(err));
-}
+// module.exports.deleteNovel = (request, response) => {
+//         m=Novel.findOne({_id:request.params.id})
+//         .then(m=> {
+//             Category.findOneAndUpdate({'_id': request.params.cid},{ 
+//                 $pull:{novels: m}
+//              })
+//              return response.json(comment)
+//         })
+//         Novel.deleteOne({ _id: request.params.id })
+//         .then(deleteConfirmation => response.json(deleteConfirmation))
+//         .catch(err => response.json(err))
+// }
+// module.exports.deleteChapter = (request, response) => {
+//     m=Chapter.findOne({_id:request.params.id})
+//     .then(m=> {
+//         Novel.findOneAndUpdate({'_id': request.params.nid},{ 
+//             $pull:{chapters: m}
+//          })
+//          return response.json(comment)
+//     })
+//     Chapter.deleteOne({ _id: request.params.id })
+//     .then(deleteConfirmation => response.json(deleteConfirmation))
+//     .catch(err => response.json(err))
+// }
+// module.exports.allNovels= (request, response) =>{
+//     Movie.find().sort({showingDate: 'ascending'}).populate('Buyers')
+//     .then(movies=>response.json(movies))
+//     .catch(err=>response.status(400).json(err));
+// }
 // -------------------------------------------------------------------------------------------------------------
 // The method below is new
 // module.exports.createNovel = (request, response) => {
@@ -161,18 +165,18 @@ module.exports.allNovels= (request, response) =>{
 //     .then(res => response.json(res))
 //     .catch(err => response.status(400).json(err));
 // }
-module.exports.deleteCategory = (request, response) => {
-    Category.deleteOne({ _id: request.params.id })
-        .then(deleteConfirmation => response.json(deleteConfirmation))
-        .catch(err => response.json(err))
-}
+// module.exports.deleteCategory = (request, response) => {
+//     Category.deleteOne({ _id: request.params.id })
+//         .then(deleteConfirmation => response.json(deleteConfirmation))
+//         .catch(err => response.json(err))
+// }
 
 
-module.exports.createUser = (request, response) => {
-    const { userName, email, password } = request.body;
-    User.create({
-        userName, email, password 
-    })
-        .then(user => response.json(user))
-        .catch(err => response.status(400).json(err))
-}
+// module.exports.createUser = (request, response) => {
+//     const { userName, email, password } = request.body;
+//     User.create({
+//         userName, email, password 
+//     })
+//         .then(user => response.json(user))
+//         .catch(err => response.status(400).json(err))
+// }

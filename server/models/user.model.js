@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-// const uniqueValidator = require('mongoose-unique-validator');
+const uniqueValidator = require('mongoose-unique-validator');
 
 let UserSchema = new mongoose.Schema ({
     userName:{ 
@@ -11,7 +11,7 @@ let UserSchema = new mongoose.Schema ({
     email: {
         type: String,
         required: [true, 'email is required'],
-        // unique: true,
+        unique: true,
         match: [/^\S+@\S+.\S+$/, 'Invalid email']
     },
     password: {
@@ -20,6 +20,11 @@ let UserSchema = new mongoose.Schema ({
         minlength: [8, 'password should contain at least 6 characters'],
         select : false
         },
+
+    novels:[{
+      type: mongoose.Schema.Types.ObjectID,
+      ref:'Novel'
+      }],
     commentsOfUser:[{
         type: mongoose.Schema.Types.ObjectID,
         ref:'Comment'
@@ -45,11 +50,11 @@ UserSchema.pre("save", async function (next) {
 //// Taking the signed token ////
   UserSchema.methods.getSignedJwtToken = function () {
     return jwt.sign({ id: this._id }, "hugehugehugehugeuhugeghuge", {
-      expiresIn: 30,
+      expiresIn: 300000000000000,
     });
   };
   
-  // UserSchema.plugin(uniqueValidator);
+  UserSchema.plugin(uniqueValidator);
 
 module.exports.User = mongoose.model('User', UserSchema);
 

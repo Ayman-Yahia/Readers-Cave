@@ -5,31 +5,35 @@ import {
     NavLink,
     Bars,
     NavMenu,
-    NavBtn,
-    NavBtnLink,
 } from "../styling/header.module";
-import styled from "styled-components";
-
-
+import {Button} from "react-bootstrap"
+import { useHistory } from "react-router-dom";
 
 const Header = () => {
-	function Header() {
-		// Import result is the URL of your image
-		return <img className="logo" src='../images/logo.png' alt="Logo" />;
-	  }
+    let history = useHistory();
+    const m=localStorage.getItem("user_id")
+    const handleLog=()=>{
+        localStorage.removeItem("authToken")
+        localStorage.removeItem("user_id")
+        history.push("/login")
+    }
     return (
         <>
+        <div>
+        
            <Nav>
+           
             <NavLogo to="/">
-			{Header()}
+			<img className="logo" src='../images/logo.png' alt="Logo" />
             </NavLogo>
             <Bars />
 
             <NavMenu>
-                <NavLink to="/" activeStyle>
+            <NavLink to="/" activeStyle>
                     Home
                 </NavLink>
-				<NavLink to="/novel/new" activeStyle>
+
+				<NavLink to="/write" activeStyle>
                     Write
                 </NavLink>
 				<NavLink to="/categories" activeStyle>
@@ -38,8 +42,16 @@ const Header = () => {
                 <NavLink to="/chat" activeStyle>
                     Live Chat
                 </NavLink>
+                
+                {m?
+                    <Button variant="danger" onClick={handleLog}>Logout</Button>:
+                    <NavLink to="/login" activeStyle>
+                    Login
+                </NavLink>
+                }
             </NavMenu> 
            </Nav> 
+           </div>
         </>
     );
 };

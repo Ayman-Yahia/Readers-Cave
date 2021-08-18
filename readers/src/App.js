@@ -11,12 +11,10 @@ import CategoryPage from "./views/CategoryPage";
 import ContactPage from "./views/ContactPage";
 import CategoriesPage from "./views/CategoriesPage";
 import ChapterPage from "./views/ChapterPage";
-import NForm from "./components/NForm";
-
+import NewNovel from "./views/NewNovel";
 //Routing :
 import PrivateRoute from "./components/routing/PrivateRoute";
 //screens:
-import PrivateScreen from "./components/screens/PrivateScreen";
 import LogInScreen from "./components/screens/LogInScreen";
 import RegisterScreen from "./components/screens/RegisterScreen";
 import LiveChat from "./views/LiveChat";
@@ -28,11 +26,11 @@ const  App =()=> {
         <Route exact path ="/login" component={LogInScreen}/>
         <Route exact path ="/register" component={RegisterScreen}/>
 
-        <PrivateRoute exact path ="/" default component = {HomePage}/>
+        <Route exact path ="/" default component = {HomePage}/>
         <PrivateRoute exact path ="/chat" default component = {LiveChat}/>
         <PrivateRoute exact path="/contact" component={ContactPage}/>
         <PrivateRoute exact path="/novel/:id" component={Novel}/>
-        <PrivateRoute exact path="/novel/new" component={NForm}/>
+        <PrivateRoute exact path="/write" component={NewNovel}/>
         <PrivateRoute exact path="/categories" component={CategoriesPage}/>
         <PrivateRoute exact path="/category/:id/" component={CategoryPage}/>
         <PrivateRoute exact path="/chapters/:id/" component={ChapterPage}/>

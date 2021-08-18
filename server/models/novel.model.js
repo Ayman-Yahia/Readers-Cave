@@ -20,9 +20,8 @@ const NovelSchema = new mongoose.Schema({
     }
     ,
     author:{
-        type: String,
-        required: [true, "author name is required"],
-        minlength: [2, "author name should be longer than 4 characters!"]
+        type: mongoose.Schema.Types.ObjectID,
+        ref:'User'
     }
     ,
     chapters:[{
@@ -34,8 +33,8 @@ const NovelSchema = new mongoose.Schema({
         ref:'Comment'
     }],
     category:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"Category"
+        type:String,
+        required: [true, "category is required"]
     }
 },
     { timestamps: true }

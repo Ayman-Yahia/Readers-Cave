@@ -5,20 +5,20 @@ const ReaderController = require('../controllers/readers.controller');
 // const CategoryController = require('../controllers/comment.controller');
 
 module.exports = function(app){
-    app.post('/api/novels/:id', ReaderController.createNovel);
+    app.post('/api/novels/cid/uid', ReaderController.createNovel);
     app.get('/api/categories', ReaderController.allCategories);
-    app.get('/api/novels/:id', ReaderController.getNovel);
+    app.get('/api/novel/:id', ReaderController.getNovel);
     app.get('/api/categories/:id', ReaderController.getCategory);
     app.get('/api/users/:id', ReaderController.getUser);
-    app.put('/api/novels/:id', ReaderController.updateNovel);
+    // app.put('/api/novels/:id', ReaderController.updateNovel);
     // app.delete('/api/novels/:id/:cid', ReaderController.deleteNovel);
     app.post('/api/category', ReaderController.createCategory )
-    app.delete('/api/category/:id', ReaderController.deleteCategory )
+    // app.delete('/api/category/:id', ReaderController.deleteCategory )
 
     app.post('/api/novels/chapter/:id',ReaderController.createChapter)
     app.post('/api/chapters',ReaderController.createChapter)
     app.get('/api/chapters/:id',ReaderController.getChapter)
-    app.post('/api/novel/nid/uid',ReaderController.createComment)
+    app.post('/api/comment/nid/uid',ReaderController.createComment)
     //////////////////////////////////////////////////////////
     //Auth routes :
     app.post( '/api/register', UserController.register );
