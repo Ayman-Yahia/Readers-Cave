@@ -27,17 +27,14 @@ module.exports.createNovel = (request, response) => {
     .catch(err => response.json(err));
 }
 module.exports.createChapter = (request, response) => {
-    const { chapterName,chapterText} = request.body;
-    Chapter.create({
-        chapterName,chapterText
+    const { chapterName,chapterText,novel} = request.body;
+    Chapter.create( request.body)
+    .then(chapter=>{
+        return Novel.findOneAndUpdate({'_id':request.params.cid},{$push:{chapters:chapter._id}})
     })
-    .then(chapter=> {
-        return Novel.findOneAndUpdate({'_id':request.params.id},{ 
-            $push:{chapters: chapter._id}
-        })
-    })
+
     .then(res => response.json(res))
-    .catch(err => response.status(400).json(err))
+    .catch(err => response.json(err));
 }
 // module.exports.updateNovel = (request, response) => {
 //     console.log(request.body)

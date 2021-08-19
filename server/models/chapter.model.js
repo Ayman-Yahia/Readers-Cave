@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const uniqueValidator = require('mongoose-unique-validator');
 
-let ChapterSchema = new mongoose.Schema ({
+const ChapterSchema = new mongoose.Schema ({
     chapterName:{ 
         type: String,
         required: [true, "chapter's name is required"],

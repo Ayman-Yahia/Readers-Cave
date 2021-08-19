@@ -54,7 +54,7 @@ UserSchema.pre("save", async function (next) {
     });
   };
   
-  UserSchema.plugin(uniqueValidator);
+UserSchema.plugin(uniqueValidator);
 
 module.exports.User = mongoose.model('User', UserSchema);
 

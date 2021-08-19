@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const uniqueValidator = require('mongoose-unique-validator');
 
-let CommentSchema = new mongoose.Schema ({
+const CommentSchema = new mongoose.Schema ({
     commentText:{ 
         type: String,
         minlength: [2, "A comment should be at least 2 characters long !"]
