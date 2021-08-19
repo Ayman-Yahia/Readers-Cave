@@ -10,7 +10,7 @@ const NovelDesc = (props) => {
   const{novelId}=props
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/novels/'+novelId)
+    axios.get('http://localhost:8000/api/novel/get/'+novelId)
         .then(res => {setNovel(res.data)
           // setComments(novel.commentsToNovel)
         setLoaded(true)

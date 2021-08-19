@@ -13,10 +13,12 @@ const Category = (props) => {
 
             setLoade(true)
         })
+        .catch(err=>{console.log("not working");
+            console.log(err);})
     },[])
     return (
         <>
-        
+
         {loade &&
         <div className="container d-flex justify-content-center align-items-center h-100">
             <div className="row">
@@ -24,6 +26,7 @@ const Category = (props) => {
                     <div className="col-md-4" key={idx}>
                         <NovelCard novel={novel} />
                     </div>
+                    
                     ))}
             </div>
         </div>

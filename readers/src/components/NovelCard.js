@@ -3,17 +3,26 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 const NovelCard = (props) => {
   const[nov,setNov]=useState({})
+  const[lo,setLo]=useState(false)
     const{novel}=props
     console.log("category iiiiii");
-    console.log(novel);
+    console.log("this is the novel "+novel);
+    console.log("sss");
     useEffect(()=>{
-      axios.get('http://localhost:8000/api/novel/'+novel)
-        .then(res => {setNov(res.data)
+      axios.get('http://localhost:8000/api/novel/get/'+novel)
+        .then(res => {
+          setNov(res.data)
+          setLo(true)
         })
+        .catch(err=>{console.log(err)
+        console.log("error");})
 
     },[])
-    console.log(nov);
+
     return (
+      
+        <>
+        {lo &&
         <div className="card text-center bg-dark animate__animated animate__fadeInUp">
       <div className="overflow">
         <img src={nov.image} alt="a wallpaper" className="card-img-top" />
@@ -25,6 +34,9 @@ const NovelCard = (props) => {
         </Link>
       </div>
     </div>
+    }
+    </>
+      
     )
 }
 

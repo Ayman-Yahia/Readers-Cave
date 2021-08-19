@@ -17,7 +17,7 @@ let CategorySchema = new mongoose.Schema ({
     novels:[{
         type: mongoose.Schema.Types.ObjectID,
         ref:'Novel'
-    }]
+    }],
 }   ,{ timestamps: true }
 )
 CategorySchema.plugin(uniqueValidator);
