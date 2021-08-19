@@ -4,35 +4,22 @@ const { User } = require('../models/user.model');
 const { Comment } = require('../models/comment.model');
 const { Category } = require('../models/category.model');
 
-// module.exports.createNovel = (request, response) => {
-//     console.log(request.body)
-//     const { novelName, desc,image,category,author } = request.body;
-//     Novel.create({ novelName, desc,image,author, category})
-//         .then(novel=> {
-//             Category.findOneAndUpdate({'_id':category},{ 
-//                 $push:{novels: novel}
-//              })
-//         })
-//         .then(novel=> {
-//             User.findOneAndUpdate({'_id':author},{$push:{novels: novel}},{new:true})
-//         })
-//         .catch(err => response.json(err));
-// }
+
 module.exports.getUser = (request, response) => {
     User.findOne({_id:request.params.id})
         .then(user => response.json(user))
         .catch(err => response.json(err))
 }
 module.exports.createNovel = (request, response) => {
-    console.log(request.body)
-    const { novelName, desc,image,author,category} = request.body;
-    Novel.create({ novelName, desc,image,author,category})
-    // .then(novel=>{
-    //     return User.findOneAndUpdate({'_id':request.params.uid},{$push:{novels:novel._id}})
-    // })
+    const { novelName, desc,image,author,novelCategory} = request.body;
+
+    Novel.create(request.body)
+    .then(novel=>{
+        return User.findOneAndUpdate({'_id':request.params.uid},{$push:{novels:novel._id}})
+    })
     .then(novel=> {
         console.log(novel)
-        return Category.findOneAndUpdate({'categoryName':request.params.cid},{ 
+        return Category.findOneAndUpdate({'_id':request.params.cid},{ 
             $push:{novels:novel._id}
         })
     })
@@ -67,8 +54,8 @@ module.exports.createChapter = (request, response) => {
 //     .catch(err => response.status(400).json(err))
 // }
 module.exports.createComment = (request, response) => {
-    const { commentText} = request.body;
-    Comment.create({ commentText})
+    const { commentText,novel,user} = request.body;
+    Comment.create( request.body)
     .then(comment=>{
         return Novel.findOneAndUpdate({'_id':request.params.nid},{$push:{commentsToNovel:comment._id}})
     })
@@ -89,8 +76,8 @@ module.exports.allCategories=(request, response) =>{
         .then(categories => response.json(categories))
         .catch(err => response.json(err))
 }
-module.exports.getCategory=(request, response)=>{
-    Category.findOne({_id:request.params.id})
+module.exports.getOneCategory=(request, response)=>{
+    Category.findOne({_id:request.params.id}).populate('novels')
     .then(category => response.json(category))
     .catch(err => response.json(err))
 }

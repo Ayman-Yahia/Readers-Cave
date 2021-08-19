@@ -3,14 +3,12 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 const NovelCard = (props) => {
   const[nov,setNov]=useState({})
-  const [se,setSe]=useState(false)
     const{novel}=props
-    console.log("mmm");
+    console.log("category iiiiii");
     console.log(novel);
     useEffect(()=>{
       axios.get('http://localhost:8000/api/novel/'+novel)
         .then(res => {setNov(res.data)
-          setSe(true);
         })
 
     },[])

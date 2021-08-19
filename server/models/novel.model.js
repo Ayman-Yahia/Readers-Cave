@@ -22,6 +22,10 @@ const NovelSchema = new mongoose.Schema({
     author:{
         type: mongoose.Schema.Types.ObjectID,
         ref:'User'
+    },
+    novelCategory:{
+        type: mongoose.Schema.Types.ObjectID,
+        ref:'Category'
     }
     ,
     chapters:[{
@@ -32,10 +36,7 @@ const NovelSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectID,
         ref:'Comment'
     }],
-    category:{
-        type:String,
-        required: [true, "category is required"]
-    }
+    
 },
     { timestamps: true }
 );

@@ -8,17 +8,17 @@ import {
   Input,
   Button,
 } from "@material-ui/core";
-import e from "cors";
-import { set } from "mongoose";
+
+import { useHistory } from "react-router-dom";
 
 const NForm = () => {
-  
+  let history = useHistory();
   const [categories,setCategories]=useState([])
   const[novelName,setNovelName]=useState("")
   const[desc,setDesc]=useState("")
   const[image,setImage]=useState("")
   const[author,setAuthor]=useState()
-  const[category,setCategory]=useState("Action")
+  const[novelCategory,setNovelCategory]=useState("Action")
   const[errors,setErrors]=useState([])
   const userId = localStorage.getItem("user_id");
   
@@ -34,9 +34,9 @@ const NForm = () => {
     console.log(`he is the author ${author}`);
     const createNovel=(e)=>{
       e.preventDefault()
-      const novel={novelName,desc,image,author,category}
+      const novel={novelName,desc,image,author,novelCategory}
       
-      axios.post(`http://localhost:8000/api/novels/${category}/${userId}`,novel)
+      axios.post(`http://localhost:8000/api/novels/${novelCategory}/${userId}`,novel)
         .then(res => {
             setErrors(null);
         })
@@ -51,6 +51,7 @@ const NForm = () => {
         setDesc("")
         setImage("")
         setNovelName("")
+        history.push("/")
   }
     
 	return (
@@ -85,13 +86,13 @@ const NForm = () => {
         <InputLabel htmlFor="age-native-simple">Category</InputLabel>
         <Select
           native
-          value={category}
-          onChange={ e => setCategory(e.target.value) }
+          value={novelCategory}
+          onChange={ e => setNovelCategory(e.target.value) }
         >
           <option aria-label="None" value="" />
           {
               categories.map((category, i) => 
-                  <option value={category.categoryName} key={ i }>{category.categoryName}</option>)
+                  <option value={category._id} key={ i }>{category.categoryName}</option>)
               
           }
         </Select>
